@@ -2,19 +2,20 @@ import 'package:bites/app/theme/app_colors.dart';
 import 'package:bites/app/theme/app_spacing.dart';
 import 'package:bites/core/widgets/main_buttons.dart';
 import 'package:bites/core/widgets/text_field.dart';
+import 'package:bites/features/auth/presentation/widgets/bottom_arc_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
-import 'package:bites/features/auth/presentation/widgets/bottom_arc_container.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,26 +28,13 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 SizedBox(height: 1.h),
-                title('Sign In'),
+                title('Sign Up'),
                 SizedBox(height: 22.sp),
                 textFields(),
                 SizedBox(height: 3.h),
                 buttons(),
                 SizedBox(height: 4.h),
-                CupertinoButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Forgot Password',
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.uprmGreen,
-                      decoration: TextDecoration.underline,
-                      decorationColor: AppColors.uprmGreen,
-                      decorationThickness: 0.6,
-                    ),
-                  ),
-                ),
+                bottomText('Already have an account? Sign In'),
               ],
             ),
           ),
@@ -89,21 +77,30 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         MyButton(
-          title: 'Sign In',
+          title: 'Next',
           onTap: () {},
           fillColor: AppColors.uprmGreen,
           borderColor: AppColors.uprmGreen,
           textColor: AppColors.white,
         ),
-        SizedBox(height: 2.h),
-        MyButton(
-          title: 'Create New Account',
-          onTap: () {},
-          fillColor: AppColors.white,
-          borderColor: AppColors.uprmGreen,
-          textColor: AppColors.uprmGreen,
-        ),
       ],
+    );
+  }
+
+  Widget bottomText(String text) {
+    return CupertinoButton(
+      onPressed: () {},
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w600,
+          color: AppColors.uprmGreen,
+          decoration: TextDecoration.underline,
+          decorationColor: AppColors.uprmGreen,
+          decorationThickness: 0.6,
+        ),
+      ),
     );
   }
 }
