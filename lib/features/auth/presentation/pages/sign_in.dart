@@ -31,7 +31,7 @@ class _SignInPageState extends State<SignInPage> {
                 title('Sign In'),
                 SizedBox(height: 22.sp),
                 textFields(),
-                SizedBox(height: 3.h),
+                SizedBox(height: 6.h),
                 buttons(),
                 SizedBox(height: 4.h),
                 bottomText('Forgot Password'),

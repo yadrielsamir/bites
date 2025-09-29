@@ -31,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 title('Sign Up'),
                 SizedBox(height: 22.sp),
                 textFields(),
-                SizedBox(height: 3.h),
+                SizedBox(height: 6.h),
                 buttons(),
                 SizedBox(height: 4.h),
                 bottomText('Already have an account? Sign In'),
@@ -57,17 +57,36 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget textFields() {
     return Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MyTextField(
+              title: 'First Name',
+              hint: 'Juan',
+              icon: Icons.person_outline,
+              halfWidth: true,
+            ),
+            MyTextField(
+              title: 'Last Name',
+              hint: 'Carlos',
+              icon: Icons.person_outline,
+              halfWidth: true,
+            ),
+          ],
+        ),
+        SizedBox(height: 3.h),
         MyTextField(
           title: 'Email Address',
           hint: 'example@uprm.edu',
           icon: Icons.email_outlined,
         ),
+        Align(alignment: Alignment.centerLeft, child: emailWarning()),
         SizedBox(height: 3.h),
         MyTextField(
-          title: 'Password',
-          hint: 'Enter your password',
-          icon: Icons.lock_outlined,
-          isPassword: true,
+          title: 'Phone Number',
+          hint: '123-456-7890',
+          icon: Icons.phone_outlined,
+          isPhoneNumber: true,
         ),
       ],
     );
@@ -100,6 +119,22 @@ class _SignUpPageState extends State<SignUpPage> {
           decorationColor: AppColors.uprmGreen,
           decorationThickness: 0.6,
         ),
+      ),
+    );
+  }
+
+  Widget emailWarning() {
+    return Padding(
+      padding: EdgeInsets.only(top: 1.h),
+      child: Row(
+        children: [
+          Icon(Icons.circle, color: AppColors.hintTextColor, size: 10.sp),
+          SizedBox(width: 2.w),
+          Text(
+            'Only @upr.edu email addresses are allowed',
+            style: TextStyle(color: AppColors.hintTextColor),
+          ),
+        ],
       ),
     );
   }
