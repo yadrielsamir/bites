@@ -1,4 +1,5 @@
 import 'package:bites/app/theme/app_colors.dart';
+import 'package:bites/app/theme/app_shadows.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -84,7 +85,7 @@ class _MyTextFieldState extends State<MyTextField> {
     decoration: BoxDecoration(
       color: AppColors.white,
       borderRadius: BorderRadius.circular(50),
-      border: Border.all(color: AppColors.uprmGreen, width: 1),
+      boxShadow: AppShadows.textField,
     ),
     child: child,
   );

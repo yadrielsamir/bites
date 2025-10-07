@@ -1,3 +1,4 @@
+import 'package:bites/app/theme/app_shadows.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sizer/sizer.dart';
 
@@ -29,6 +30,7 @@ class MyButton extends StatelessWidget {
           color: fillColor,
           borderRadius: BorderRadius.circular(50),
           border: Border.all(color: borderColor, width: 1),
+          boxShadow: AppShadows.button,
         ),
         child: Center(
           child: Text(

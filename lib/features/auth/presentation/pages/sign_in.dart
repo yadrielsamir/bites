@@ -78,9 +78,7 @@ class _SignInPageState extends State<SignInPage> {
       children: [
         MyButton(
           title: 'Sign In',
-          onTap: () {
-            context.goNamed('signup');
-          },
+          onTap: () {},
           fillColor: AppColors.uprmGreen,
           borderColor: AppColors.uprmGreen,
           textColor: AppColors.white,
@@ -88,9 +86,11 @@ class _SignInPageState extends State<SignInPage> {
         SizedBox(height: 2.h),
         MyButton(
           title: 'Create New Account',
-          onTap: () {},
+          onTap: () {
+            context.goNamed('signup');
+          },
           fillColor: AppColors.white,
-          borderColor: AppColors.uprmGreen,
+          borderColor: AppColors.white,
           textColor: AppColors.uprmGreen,
         ),
       ],
