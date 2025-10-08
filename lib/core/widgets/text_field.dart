@@ -14,6 +14,7 @@ class MyTextField extends StatefulWidget {
   final bool halfWidth;
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
+  final bool? hideTitle;
 
   MyTextField({
     super.key,
@@ -23,6 +24,7 @@ class MyTextField extends StatefulWidget {
     this.isPassword = false,
     this.isPhoneNumber = false,
     this.halfWidth = false,
+    this.hideTitle = false,
     this.controller,
     this.onChanged,
   });
@@ -52,7 +54,7 @@ class _MyTextFieldState extends State<MyTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _fieldTitle(widget.title),
+        if (!widget.hideTitle!) _fieldTitle(widget.title),
         SizedBox(height: 0.8.h),
         _inputShell(
           Row(

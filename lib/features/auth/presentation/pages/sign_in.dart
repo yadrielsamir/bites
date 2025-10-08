@@ -99,7 +99,9 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget bottomText(String text) {
     return CupertinoButton(
-      onPressed: () {},
+      onPressed: () {
+        context.pushNamed('forgot_password');
+      },
       child: Text(
         text,
         style: TextStyle(
