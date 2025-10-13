@@ -1,4 +1,5 @@
 import 'package:bites/features/auth/presentation/pages/forgot_password.dart';
+import 'package:bites/features/menu/presentation/home.dart';
 import 'package:go_router/go_router.dart';
 import '../features/auth/presentation/pages/sign_in.dart';
 import '../features/auth/presentation/pages/sign_up.dart';
@@ -23,6 +24,10 @@ final router = GoRouter(
         ),
       ],
     ),
-    //GoRoute(path: '/', builder: (context, state) => const HomePage()),
+    GoRoute(
+      name: 'home',
+      path: '/home',
+      builder: (context, state) => const HomePage(),
+    ),
   ],
 );

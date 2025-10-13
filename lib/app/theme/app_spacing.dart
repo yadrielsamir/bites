@@ -6,4 +6,5 @@ class AppSpacing {
   static double md = 6.w; // ~24px
   static double lg = 8.w; // ~32px
   static double xl = 10.w; // ~48px
+  static double xxl = 12.w; // ~64px
 }

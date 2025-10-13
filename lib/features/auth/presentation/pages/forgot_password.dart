@@ -4,6 +4,7 @@ import 'package:bites/core/widgets/main_buttons.dart';
 import 'package:bites/core/widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
@@ -14,19 +15,28 @@ class ForgotPasswordPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.backgroundWhite,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 6.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.sm,
+          vertical: AppSpacing.xxl,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
+            Padding(
+              padding: EdgeInsets.only(
+                top: AppSpacing.md,
+                bottom: AppSpacing.sm,
+              ),
               child: CupertinoButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                minimumSize: Size(0, 0),
+                onPressed: () {
+                  context.pop();
+                },
                 child: Icon(
                   Icons.arrow_back,
                   color: AppColors.uprmGreen,
-                  size: 20.sp,
+                  size: 22.sp,
                 ),
               ),
             ),

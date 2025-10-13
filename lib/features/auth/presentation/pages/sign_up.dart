@@ -18,7 +18,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   int currentPage = 0;
-  int direction = 1; // 1 = forward, -1 = back
+  int direction = 1;
 
   Future<void> nextPage() async {
     if (currentPage < 1) {
@@ -106,8 +106,6 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ],
       ),
-
-      // Button pinned to bottom (consistent position)
       bottomNavigationBar: SafeArea(
         top: false,
         child: Padding(
@@ -120,13 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              MyButton(
-                title: 'Next',
-                onTap: nextPage,
-                fillColor: AppColors.uprmGreen,
-                borderColor: AppColors.uprmGreen,
-                textColor: AppColors.white,
-              ),
+              bottomButton(),
               SizedBox(height: 2.h),
               bottomText(),
             ],
@@ -227,14 +219,12 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget nextButton() {
+  Widget bottomButton() {
     return Column(
       children: [
         MyButton(
-          title: 'Next',
-          onTap: () {
-            nextPage();
-          },
+          title: currentPage == 0 ? 'Next' : 'Sign Up',
+          onTap: currentPage == 0 ? nextPage : () => context.go('/home'),
           fillColor: AppColors.uprmGreen,
           borderColor: AppColors.uprmGreen,
           textColor: AppColors.white,
@@ -261,7 +251,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           SizedBox(width: 1.w),
           Text(
-            'Sign in',
+            'Sign In',
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
@@ -293,10 +283,10 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget firstPage() {
-    return Column(children: [firstPageTextFields()]);
+    return firstPageTextFields();
   }
 
   Widget secondPage() {
-    return Column(children: [secondPageTextFields()]);
+    return secondPageTextFields();
   }
 }
