@@ -21,4 +21,7 @@ class AppColors {
 
   //white
   static const Color white = Color(0xFFFFFFFF);
+
+  //hint text color
+  static const Color hintTextColor = Color(0xFF989898);
 }

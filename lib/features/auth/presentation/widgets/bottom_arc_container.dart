@@ -9,7 +9,7 @@ class BottomArcContainer extends StatelessWidget {
   const BottomArcContainer({
     super.key,
     this.color = AppColors.uprmGreen,
-    this.height = 20,
+    this.height = 23,
   });
 
   @override
@@ -25,12 +25,12 @@ class BottomArcClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.lineTo(0, size.height - 50);
+    path.lineTo(0, size.height - 70);
     path.quadraticBezierTo(
       size.width / 2,
       size.height,
       size.width,
-      size.height - 50,
+      size.height - 70,
     );
     path.lineTo(size.width, 0);
     path.close();

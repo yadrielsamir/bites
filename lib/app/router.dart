@@ -1,10 +1,33 @@
+import 'package:bites/features/auth/presentation/pages/forgot_password.dart';
+import 'package:bites/features/menu/presentation/home.dart';
 import 'package:go_router/go_router.dart';
-import '../features/auth/presentation/pages/login_page.dart';
+import '../features/auth/presentation/pages/sign_in.dart';
+import '../features/auth/presentation/pages/sign_up.dart';
 
 final router = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/signin',
   routes: [
-    GoRoute(path: '/login', builder: (context, state) => const LoginPage()),
-    //GoRoute(path: '/', builder: (context, state) => const HomePage()),
+    GoRoute(
+      name: 'signin',
+      path: '/signin',
+      builder: (context, state) => const SignInPage(),
+      routes: [
+        GoRoute(
+          name: 'forgot_password',
+          path: 'forgot_password',
+          builder: (context, state) => const ForgotPasswordPage(),
+        ),
+        GoRoute(
+          name: 'signup',
+          path: 'signup',
+          builder: (context, state) => const SignUpPage(),
+        ),
+      ],
+    ),
+    GoRoute(
+      name: 'home',
+      path: '/home',
+      builder: (context, state) => const HomePage(),
+    ),
   ],
 );
