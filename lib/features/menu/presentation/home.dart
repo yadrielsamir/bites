@@ -1,19 +1,20 @@
 import 'package:bites/app/theme/app_colors.dart';
+import 'package:bites/features/menu/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Home> createState() => _HomeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const Center(child: Text('🏠 Home Page')),
+    HomePage(),
     const Center(child: Text('🔍 Orders Page')),
     const Center(child: Text('👤 Account Page')),
   ];
