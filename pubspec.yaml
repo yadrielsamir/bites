@@ -68,6 +68,8 @@ flutter:
     - assets/icons/Outline_Home_Icon.png
     - assets/icons/Outline_Receipt_Icon.png
     - assets/icons/Outline_User_Icon.png
+    - assets/icons/Outline_Cart_Icon.png
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
