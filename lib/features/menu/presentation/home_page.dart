@@ -3,6 +3,7 @@ import 'package:bites/app/theme/app_shadows.dart';
 import 'package:bites/app/theme/app_spacing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
 class HomePage extends StatefulWidget {
@@ -140,7 +141,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget foodCard(String title, String location, String closingTime) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        context.pushNamed('ordering_options');
+      },
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.backgroundWhite,

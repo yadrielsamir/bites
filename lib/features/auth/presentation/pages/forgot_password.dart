@@ -36,7 +36,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 child: Icon(
                   Icons.arrow_back,
                   color: AppColors.uprmGreen,
-                  size: 22.sp,
+                  size: 20.sp,
                 ),
               ),
             ),
