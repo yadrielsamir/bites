@@ -23,7 +23,7 @@ class _OrderingOptionsState extends State<OrderingOptions> {
     'beverages',
   ];
 
-  final ScrollController _listCtrl = ScrollController();
+  final ScrollController _scrollCtrl = ScrollController();
   late final Map<String, GlobalKey> _sectionKeys;
 
   int _selected = 0;
@@ -40,6 +40,7 @@ class _OrderingOptionsState extends State<OrderingOptions> {
     final ctx = _sectionKeys[option]!.currentContext;
     if (ctx == null) return;
 
+    // Works with slivers as long as each section has a context/key.
     await Scrollable.ensureVisible(
       ctx,
       duration: const Duration(milliseconds: 300),
@@ -53,76 +54,85 @@ class _OrderingOptionsState extends State<OrderingOptions> {
     return Scaffold(
       backgroundColor: AppColors.backgroundWhite,
       appBar: _appBar(context),
-      body: Column(
-        children: [
-          _foodSpotImage(),
+      body: CustomScrollView(
+        controller: _scrollCtrl,
+        slivers: [
+          // Top hero / image
+          SliverToBoxAdapter(child: _foodSpotImage()),
 
-          Container(
-            height: 6.h,
-            width: double.infinity,
-            color: AppColors.uprmGreen,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              child: Row(
-                children: [
-                  CupertinoButton(
-                    onPressed: () async {
-                      final categories = options
-                          .map((name) => Category(name, 0))
-                          .toList();
-
-                      final picked = await showMenuCategoriesModal(
-                        context,
-                        categories: categories,
-                        selectedIndex: _selected,
-                      );
-
-                      if (picked != null) {
-                        _goTo(options[picked], picked);
-                      }
-                    },
-                    padding: EdgeInsets.zero,
-                    child: Icon(
-                      Icons.format_list_bulleted,
-                      color: AppColors.white,
-                      size: 20.sp,
-                    ),
-                  ),
-                  SizedBox(width: 3.w),
-                  for (int i = 0; i < options.length; i++) ...[
-                    _CategoryChip(
-                      label: options[i],
-                      selected: _selected == i,
-                      onTap: () => _goTo(options[i], i),
-                    ),
-                    SizedBox(width: 4.w),
-                  ],
-                ],
+          // Pinned categories bar
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _CategoriesHeaderDelegate(
+              minExtentHeight: 7.h,
+              maxExtentHeight: 7.h,
+              child: _CategoriesBar(
+                options: options,
+                selected: _selected,
+                onOpenModal: () async {
+                  final categories = options
+                      .map((n) => Category(n, 0))
+                      .toList();
+                  final picked = await showMenuCategoriesModal(
+                    context,
+                    categories: categories,
+                    selectedIndex: _selected,
+                  );
+                  if (picked != null) _goTo(options[picked], picked);
+                },
+                onTapChip: (i) => _goTo(options[i], i),
               ),
             ),
           ),
 
-          Expanded(
-            child: SingleChildScrollView(
-              controller: _listCtrl,
-              child: Padding(
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     for (final o in options) ...[
                       _SectionHeader(key: _sectionKeys[o], title: o),
-                      const _MenuItem(title: 'Classic', price: '\$8.99'),
-                      const _MenuItem(title: 'La Jibarita', price: '\$9.49'),
-                      const _MenuItem(title: 'La Favorita', price: '\$10.69'),
-                      const _MenuItem(title: 'El Guerrero', price: '\$8.79'),
-                      SizedBox(height: 2.h),
+                      _MenuItem(
+                        title: 'Classic',
+                        price: '\$8.99',
+                        onTap: () => context.pushNamed(
+                          'customize_item',
+                          extra: {'item': 'Classic', 'price': 8.99},
+                        ),
+                      ),
+                      _MenuItem(
+                        title: 'La Jibarita',
+                        price: '\$9.49',
+                        onTap: () => context.pushNamed(
+                          'customize_item',
+                          extra: {'item': 'La Jibarita', 'price': 9.49},
+                        ),
+                      ),
+                      _MenuItem(
+                        title: 'La Favorita',
+                        price: '\$10.69',
+                        onTap: () => context.pushNamed(
+                          'customize_item',
+                          extra: {'item': 'La Favorita', 'price': 10.69},
+                        ),
+                      ),
+                      _MenuItem(
+                        title: 'El Guerrero',
+                        price: '\$8.79',
+                        onTap: () => context.pushNamed(
+                          'customize_item',
+                          extra: {'item': 'El Guerrero', 'price': 8.79},
+                        ),
+                      ),
+                      SizedBox(height: 1.h),
                     ],
                   ],
                 ),
               ),
-            ),
+              SizedBox(height: 2.h),
+            ]),
           ),
         ],
       ),
@@ -132,7 +142,7 @@ class _OrderingOptionsState extends State<OrderingOptions> {
 
 PreferredSizeWidget _appBar(BuildContext context) {
   return AppBar(
-    backgroundColor: AppColors.backgroundWhite,
+    backgroundColor: AppColors.white,
     leading: IconButton(
       onPressed: () => context.pop(),
       icon: Icon(Icons.arrow_back, color: AppColors.uprmGreen, size: 20.sp),
@@ -165,7 +175,7 @@ Widget _foodSpotImage() {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(
-          'Food Spot Name',
+          'Batatas Potatoes',
           style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
         ),
         SizedBox(height: 0.5.h),
@@ -175,6 +185,91 @@ Widget _foodSpotImage() {
       ],
     ),
   );
+}
+
+class _CategoriesHeaderDelegate extends SliverPersistentHeaderDelegate {
+  _CategoriesHeaderDelegate({
+    required this.minExtentHeight,
+    required this.maxExtentHeight,
+    required this.child,
+  });
+
+  final double minExtentHeight;
+  final double maxExtentHeight;
+  final Widget child;
+
+  @override
+  double get minExtent => minExtentHeight;
+
+  @override
+  double get maxExtent => maxExtentHeight;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return Container(
+      color: AppColors.uprmGreen, // keep background while pinned
+      child: child,
+    );
+  }
+
+  @override
+  bool shouldRebuild(covariant _CategoriesHeaderDelegate oldDelegate) {
+    return oldDelegate.minExtentHeight != minExtentHeight ||
+        oldDelegate.maxExtentHeight != maxExtentHeight ||
+        oldDelegate.child != child;
+  }
+}
+
+class _CategoriesBar extends StatelessWidget {
+  const _CategoriesBar({
+    required this.options,
+    required this.selected,
+    required this.onOpenModal,
+    required this.onTapChip,
+  });
+
+  final List<String> options;
+  final int selected;
+  final VoidCallback onOpenModal;
+  final void Function(int index) onTapChip;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 7.h,
+      width: double.infinity,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+        child: Row(
+          children: [
+            CupertinoButton(
+              onPressed: onOpenModal,
+              padding: EdgeInsets.zero,
+              child: Icon(
+                Icons.format_list_bulleted,
+                color: AppColors.white,
+                size: 20.sp,
+              ),
+            ),
+            SizedBox(width: 3.w),
+            for (int i = 0; i < options.length; i++) ...[
+              _CategoryChip(
+                label: options[i],
+                selected: selected == i,
+                onTap: () => onTapChip(i),
+              ),
+              SizedBox(width: 4.w),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _CategoryChip extends StatelessWidget {
@@ -218,7 +313,6 @@ class _CategoryChip extends StatelessWidget {
 
 class _SectionHeader extends StatelessWidget {
   const _SectionHeader({super.key, required this.title});
-
   final String title;
 
   @override
@@ -227,33 +321,33 @@ class _SectionHeader extends StatelessWidget {
       padding: EdgeInsets.only(top: 2.2.h, bottom: 1.2.h),
       child: Text(
         title,
-        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
+        style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
       ),
     );
   }
 }
 
 class _MenuItem extends StatelessWidget {
-  const _MenuItem({required this.title, required this.price});
+  const _MenuItem({required this.title, required this.price, this.onTap});
 
   final String title;
   final String price;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: TextStyle(fontSize: 16.sp)),
-            SizedBox(height: 1.h),
-            Text(price, style: TextStyle(fontSize: 16.sp)),
-          ],
-        ),
-        Divider(height: 2.h),
-      ],
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: TextStyle(fontSize: 16.sp)),
+          SizedBox(height: 1.5.h),
+          Text(price, style: TextStyle(fontSize: 16.sp)),
+          Divider(height: 2.h, color: Colors.grey[300]),
+        ],
+      ),
     );
   }
 }
