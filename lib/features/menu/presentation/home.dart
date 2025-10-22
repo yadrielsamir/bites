@@ -1,5 +1,7 @@
 import 'package:bites/app/theme/app_colors.dart';
+import 'package:bites/features/menu/presentation/account.dart';
 import 'package:bites/features/menu/presentation/home_page.dart';
+import 'package:bites/features/menu/presentation/orders.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,11 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    HomePage(),
-    const Center(child: Text('🔍 Orders Page')),
-    const Center(child: Text('👤 Account Page')),
-  ];
+  final List<Widget> _pages = [HomePage(), OrdersPage(), AccountPage()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -97,7 +95,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           SizedBox(height: 1.h),
-          Image.asset(outline, height: 28),
+          Image.asset(outline, height: 24),
           SizedBox(height: 1.h),
         ],
       ),
@@ -117,7 +115,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           SizedBox(height: 1.h),
-          Image.asset(filled, height: 28),
+          Image.asset(filled, height: 24),
           SizedBox(height: 1.h),
         ],
       ),

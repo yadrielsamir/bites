@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: AppSpacing.sm,
-            ).copyWith(top: MediaQuery.of(context).padding.top + 8),
+            ).copyWith(top: MediaQuery.of(context).padding.top + 2),
             child: topRow(),
           ),
         ],

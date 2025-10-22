@@ -57,10 +57,8 @@ class _OrderingOptionsState extends State<OrderingOptions> {
       body: CustomScrollView(
         controller: _scrollCtrl,
         slivers: [
-          // Top hero / image
           SliverToBoxAdapter(child: _foodSpotImage()),
 
-          // Pinned categories bar
           SliverPersistentHeader(
             pinned: true,
             delegate: _CategoriesHeaderDelegate(
@@ -101,7 +99,8 @@ class _OrderingOptionsState extends State<OrderingOptions> {
                           'customize_item',
                           extra: {
                             'item': 'Classic',
-                            'description': 'La mejor comida del mundo',
+                            'description':
+                                'Yummy yam with chicken, potato sticks, cheese, sweet plantains and a touch of sour cream',
                             'price': 8.99,
                           },
                         ),
@@ -114,7 +113,8 @@ class _OrderingOptionsState extends State<OrderingOptions> {
 
                           extra: {
                             'item': 'La Jibarita',
-                            'description': 'La mejor comida del mundo',
+                            'description':
+                                'Yummy yam with chicken, potato sticks, cheese, sweet plantains and a touch of sour cream',
                             'price': 9.49,
                           },
                         ),
@@ -126,7 +126,8 @@ class _OrderingOptionsState extends State<OrderingOptions> {
                           'customize_item',
                           extra: {
                             'item': 'La Favorita',
-                            'description': 'La mejor comida del mundo',
+                            'description':
+                                'Yummy yam with chicken, potato sticks, cheese, sweet plantains and a touch of sour cream',
                             'price': 10.69,
                           },
                         ),
@@ -138,7 +139,8 @@ class _OrderingOptionsState extends State<OrderingOptions> {
                           'customize_item',
                           extra: {
                             'item': 'El Guerrero',
-                            'description': 'La mejor comida del mundo',
+                            'description':
+                                'Yummy yam with chicken, potato sticks, cheese, sweet plantains and a touch of sour cream',
                             'price': 8.79,
                           },
                         ),
