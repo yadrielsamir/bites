@@ -99,7 +99,11 @@ class _OrderingOptionsState extends State<OrderingOptions> {
                         price: '\$8.99',
                         onTap: () => context.pushNamed(
                           'customize_item',
-                          extra: {'item': 'Classic', 'price': 8.99},
+                          extra: {
+                            'item': 'Classic',
+                            'description': 'La mejor comida del mundo',
+                            'price': 8.99,
+                          },
                         ),
                       ),
                       _MenuItem(
@@ -107,7 +111,12 @@ class _OrderingOptionsState extends State<OrderingOptions> {
                         price: '\$9.49',
                         onTap: () => context.pushNamed(
                           'customize_item',
-                          extra: {'item': 'La Jibarita', 'price': 9.49},
+
+                          extra: {
+                            'item': 'La Jibarita',
+                            'description': 'La mejor comida del mundo',
+                            'price': 9.49,
+                          },
                         ),
                       ),
                       _MenuItem(
@@ -115,7 +124,11 @@ class _OrderingOptionsState extends State<OrderingOptions> {
                         price: '\$10.69',
                         onTap: () => context.pushNamed(
                           'customize_item',
-                          extra: {'item': 'La Favorita', 'price': 10.69},
+                          extra: {
+                            'item': 'La Favorita',
+                            'description': 'La mejor comida del mundo',
+                            'price': 10.69,
+                          },
                         ),
                       ),
                       _MenuItem(
@@ -123,7 +136,11 @@ class _OrderingOptionsState extends State<OrderingOptions> {
                         price: '\$8.79',
                         onTap: () => context.pushNamed(
                           'customize_item',
-                          extra: {'item': 'El Guerrero', 'price': 8.79},
+                          extra: {
+                            'item': 'El Guerrero',
+                            'description': 'La mejor comida del mundo',
+                            'price': 8.79,
+                          },
                         ),
                       ),
                       SizedBox(height: 1.h),
@@ -143,6 +160,9 @@ class _OrderingOptionsState extends State<OrderingOptions> {
 PreferredSizeWidget _appBar(BuildContext context) {
   return AppBar(
     backgroundColor: AppColors.white,
+    surfaceTintColor: Colors.transparent,
+    scrolledUnderElevation: 0,
+    elevation: 0,
     leading: IconButton(
       onPressed: () => context.pop(),
       icon: Icon(Icons.arrow_back, color: AppColors.uprmGreen, size: 20.sp),

@@ -41,8 +41,15 @@ final router = GoRouter(
           path: 'customize_item',
           builder: (context, state) {
             final item = state.extra as Map<String, dynamic>;
+            final description = state.extra as Map<String, dynamic>;
+
             final price = item['price'];
-            return CustomizeItem(item: item['item'], price: price);
+
+            return CustomizeItem(
+              item: item['item'],
+              description: description['description'],
+              price: price,
+            );
           },
         ),
       ],
